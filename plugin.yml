@@ -1,0 +1,4 @@
+name: ForceField
+author: broswen
+version: 1.0
+main: com.broswen.forcefield.ForceField

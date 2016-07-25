@@ -1,0 +1,12 @@
+fields:
+  field1:
+    area: world,1,2,3:world,6,7,8
+    visualize: true
+    message: You are not allowed to enter this area!
+    sound: true
+
+  field1:
+      area: world,1,2,3:world,6,7,8
+      visualize: false
+      message: bzzt!
+      sound: true
