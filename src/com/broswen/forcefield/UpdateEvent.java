@@ -7,6 +7,7 @@ import org.bukkit.event.HandlerList;
  * Created by Brad S on 7/25/2016.
  */
 public class UpdateEvent extends Event{
+    private static final HandlerList handlers = new HandlerList();
 
     UpdateType type;
     public UpdateEvent(UpdateType type){
@@ -19,8 +20,10 @@ public class UpdateEvent extends Event{
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return handlers;
     }
 
-    public static HandlerList getHandlerList() { return null;}
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

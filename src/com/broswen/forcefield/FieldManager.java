@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,22 +17,29 @@ public class FieldManager {
     List<Field> fields;
     public FieldManager(Plugin plugin){
         this.plugin = plugin;
-
+        fields = new ArrayList<>();
         loadFields();
     }
 
     private void loadFields(){
+        Bukkit.getLogger().info("ForceField: Loading fields from file.");
         int i = 0;
         ConfigurationSection configSec = plugin.getConfig().getConfigurationSection("fields");
 
         for(String s : configSec.getKeys(false)){
-            String[] strings = plugin.getConfig().getString("fields." + s + ".area").split(":");
-            Location loc1 = deserializeLocation(strings[0]);
-            Location loc2 = deserializeLocation(strings[1]);
-            fields.add(new Field(plugin, s, loc1, loc2,
-                    plugin.getConfig().getBoolean("fields." + s + ".visualize"),
-                    plugin.getConfig().getBoolean("fields." + s + ".sound")));
-            i++;
+            try{
+                String[] strings = configSec.getString(s + ".area").split(":");
+                Location loc1 = deserializeLocation(strings[0]);
+                Location loc2 = deserializeLocation(strings[1]);
+                boolean visualize = configSec.getBoolean(s + ".visualize");
+                boolean sound = configSec.getBoolean(s + ".sound");
+                String message = configSec.getString(s + ".message");
+                fields.add(new Field(plugin, s, loc1, loc2, visualize, sound, message));
+                i++;
+            }catch (Exception e){
+                Bukkit.getLogger().warning("ERROR LOADING FIELD: " + e.toString());
+                e.printStackTrace();
+            }
         }
         Bukkit.getLogger().info("ForceFields: loaded " + i + " fields.");
     }

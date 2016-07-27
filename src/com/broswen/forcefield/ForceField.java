@@ -11,6 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
 public class ForceField extends JavaPlugin{
 
     FieldManager fm;
+
     @Override
     public void onEnable(){
         loadConfig();
